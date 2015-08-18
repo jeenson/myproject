@@ -13,11 +13,6 @@
             </div>
         {% endfor %}
 
-        {% if app.debug %}
-            <p>Request method: {{ app.request.method }}</p>
-            <p>Application Environment: {{ app.environment }}</p>
-        {% endif %}
-
         <div id="content">
             {% block body %}{% endblock %}
         </div>
