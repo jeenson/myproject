@@ -13,7 +13,7 @@ class Car
 	 * @var string $cajaCambios
 	 *
 	 */
-	private $cajaCambios = 'Automatica';
+	private $cajaCambios = 'Manual';
 
 	/**
 	 * @var boolean $encendido
@@ -25,7 +25,7 @@ class Car
 	 * @var integer $cantPuertas
 	 *
 	 */
-	private $cantPuertas = 2;
+	private $cantPuertas = 6;
 
 
 	public function getMarca()
@@ -49,7 +49,7 @@ class Car
     {
         return 0 !== count($this->cantPuertas);
     }
-
+    
     public function getCantPuertas()
     {
     	return $this->cantPuertas;

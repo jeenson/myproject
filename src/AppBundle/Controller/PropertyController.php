@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Car;
+use AppBundle\Entity\Person1;
 
 
 class PropertyController extends Controller
@@ -21,7 +22,8 @@ class PropertyController extends Controller
         
         $person = array(
             'first_name' => 'Jeenson',
-            'last_name' => 'Aguilar'
+            
+            'age' => 25
         );
 
         var_dump($accessor->getValue($person, '[first_name]')); 
@@ -46,12 +48,14 @@ class PropertyController extends Controller
             ),
             array(
                 'first_name' => 'Luis Carlos',
+                'last_name' => 'Torres'
             )
         );
 
         var_dump($accessor->getValue($persons, '[0][first_name]'));
         var_dump($accessor->getValue($persons, '[0][last_name]'));
         var_dump($accessor->getValue($persons, '[1][first_name]'));
+        var_dump($accessor->getValue($persons, '[1][last_name]'));
 
         return $this->render('property/index.html.twig');
     }
@@ -66,11 +70,11 @@ class PropertyController extends Controller
         $accessor = PropertyAccess::createPropertyAccessor();
         
         $person = new Person();
-        $person->firstName = 'Jeenson';
-        $person->lastName = 'Aguilar';
+        $person->firstName = 'Patria';
+        $person->lastName = 'Ayuso';
 
         $child = new Person();
-        $child->firstName = 'Luis Carlos';
+        $child->firstName = 'Oscar';
 
         //Agregando el Hijo del Padre
         $person->children = array($child);
@@ -93,7 +97,7 @@ class PropertyController extends Controller
         $objCar = new Car();
 
         var_dump($accessor->getValue($objCar, 'marca'));
-        var_dump($accessor->getValue($objCar, 'caja_cambios'));
+        var_dump($accessor->getValue($objCar, 'caja_cambios1'));
 
         return $this->render('property/index.html.twig');
     }
@@ -114,11 +118,31 @@ class PropertyController extends Controller
         }
         
 
-        if ($accessor->getValue($objCar, 'cantPuertas')) {
-            var_dump('Ohh, Carro con Puertas');
-            //$numP = $accessor->getValue($objCar, 'cant_puertas');
-            //var_dump('Tiene '. $numP .' de puertas el carro.');
+        if ($accessor->getValue($objCar, 'cant_puertas')) {
+            //var_dump('Ohh, Carro con Puertas');
+            $numP = $accessor->getValue($objCar, 'cant_puertas');
+            var_dump('Tiene '. $numP .' de puertas el carro.');
         }
+
+        return $this->render('property/index.html.twig');
+    }
+
+    /**
+     * @Route("/property6/", name="property6")
+     * Escribiendo en Array
+     * Accediendo a propiedades publicas
+     */
+    public function index6Action()
+    {
+        $accessor = PropertyAccess::createPropertyAccessor();
+        
+        $person = array();
+
+        $accessor->setValue($person, '[first_name]', 'Jeenson');
+        $accessor->setValue($person, '[lastName]', 'Aguilar');
+        
+        var_dump($accessor->getValue($person, '[first_name]'));
+        var_dump($accessor->getValue($person, '[lastName]'));
 
         return $this->render('property/index.html.twig');
     }
