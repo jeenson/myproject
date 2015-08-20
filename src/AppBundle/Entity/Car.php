@@ -15,6 +15,19 @@ class Car
 	 */
 	private $cajaCambios = 'Automatica';
 
+	/**
+	 * @var boolean $encendido
+	 *
+	 */
+	private $encendido = true;
+
+	/**
+	 * @var integer $cantPuertas
+	 *
+	 */
+	private $cantPuertas = 2;
+
+
 	public function getMarca()
 	{
 		return $this->marca;
@@ -24,5 +37,22 @@ class Car
 	{
 		return $this->cajaCambios;
 	}
+
+	
+	public function isEncendido()
+    {
+        return $this->encendido;
+    }
+	
+
+    public function hasCantPuertas()
+    {
+        return 0 !== count($this->cantPuertas);
+    }
+
+    public function getCantPuertas()
+    {
+    	return $this->cantPuertas;
+    }
 
 }

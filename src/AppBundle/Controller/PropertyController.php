@@ -99,16 +99,26 @@ class PropertyController extends Controller
     }
     /**
      * @Route("/property5/", name="property5")
-     * Leyendo objetos - Usando Getters
+     * Leyendo objetos - Using Hassers/Issers
      */
-    public function index4Action()
+    public function index5Action()
     {
         $accessor = PropertyAccess::createPropertyAccessor();
 
         $objCar = new Car();
 
-        var_dump($accessor->getValue($objCar, 'marca'));
-        var_dump($accessor->getValue($objCar, 'caja_cambios'));
+        if ($accessor->getValue($objCar, 'encendido')) {
+            var_dump('El carro se encuentra encendido');
+        }else{
+            var_dump('El carro se encuentra Apagado');
+        }
+        
+
+        if ($accessor->getValue($objCar, 'cantPuertas')) {
+            var_dump('Ohh, Carro con Puertas');
+            //$numP = $accessor->getValue($objCar, 'cant_puertas');
+            //var_dump('Tiene '. $numP .' de puertas el carro.');
+        }
 
         return $this->render('property/index.html.twig');
     }
