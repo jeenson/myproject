@@ -145,6 +145,5 @@ class PropertyController extends Controller
         var_dump($accessor->getValue($person, '[lastName]'));
 
         return $this->render('property/index.html.twig');
-        
     }
 }
