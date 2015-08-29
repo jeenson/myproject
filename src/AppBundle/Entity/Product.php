@@ -3,10 +3,12 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="product")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Product
 {
@@ -19,6 +21,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank()
      */
     protected $name;
 
@@ -33,10 +36,16 @@ class Product
     protected $description;
 
     /**
+    * @ORM\Column(type="datetime")
+    */
+    protected $created;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     protected $category;
+
 
     /**
      * Get id
@@ -115,6 +124,14 @@ class Product
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->created = new \DateTime();
     }
 
     /**

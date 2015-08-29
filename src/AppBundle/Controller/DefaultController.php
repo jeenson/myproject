@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\Category;
 
 class DefaultController extends Controller
 {
@@ -27,16 +28,23 @@ class DefaultController extends Controller
     public function createAction()
     {
         $product = new Product();
-        $product->setName('A Foo Bar');
-        $product->setPrice('19.99');
-        $product->setDescription('Lorem ipsum dolor');
+        //$product->setName('Televison');
+        $product->setPrice('160');
+        $product->setDescription('Samsung 50');
 
-        $em = $this->getDoctrine()->getManager();
+        $validator = $this->get('validator');
+        $errors = $validator->validate($product);
 
-        $em->persist($product);
-        $em->flush();
-
-        return new Response('Created product id '.$product->getId());
+        if (count($errors) > 0) {
+            return $this->render('product/validation.html.twig', array(
+                'errors' => $errors,
+            ));
+        }else{
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return new Response('Created product id '.$product->getId());
+        }
     }
 
     /**
@@ -81,5 +89,20 @@ class DefaultController extends Controller
         dump($categoryName);
         die();
 
+    }
+
+    /**
+    * @Route("/product/show", name ="productShow")
+    */
+    public function showProductsAction($id = 1)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository('AppBundle:Product')
+            ->find($id);
+
+        $category = $product->getCategory();
+
+        dump(get_class($category));
+        die();
     }
 }
