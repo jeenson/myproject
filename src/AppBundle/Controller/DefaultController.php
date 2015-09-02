@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Product;
 use AppBundle\Entity\Category;
+use AppBundle\Form\Type\ProductType;
 
 class DefaultController extends Controller
 {
@@ -109,19 +110,34 @@ class DefaultController extends Controller
     /**
      * @Route("/product/new", name="productNew")
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $product = new Product();
         $product->setName('Televison');
         $product->setPrice('160');
         $product->setDescription('Samsung 50');
 
+        /*
         $form = $this->createFormBuilder($product)
         ->add('name', 'text')
         ->add('price', 'number')
         ->add('description', 'textarea')
+        //->add('duoDate', 'date', array('widget' => 'single_text', 'label'  => 'Due Date'))
+        ->add('dueDate', null, array('widget' => 'single_text'))
         ->add('save', 'submit', array('label' => 'New Product'))
-        ->getForm();
+        ->add('saveAndAdd', 'submit', array('label' => 'Save and Add'))
+        ->getForm();*/
+
+        $form = $this->createForm(new ProductType(), $product);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $nextAction = $form->get('saveAndAdd')->isClicked()
+            ? 'task_new'
+            : 'task_success';
+            die($nextAction);
+            //return $this->redirectToRoute('task_success');
+        }
 
         return $this->render('product/new.html.twig', array(
             'form' => $form->createView(),

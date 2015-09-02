@@ -36,6 +36,12 @@ class Product
     protected $description;
 
     /**
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank()
+     */
+    protected $dueDate;
+
+    /**
     * @ORM\Column(type="datetime")
     */
     protected $created;
@@ -125,6 +131,30 @@ class Product
     {
         return $this->description;
     }
+
+    /**
+     * Set duedate
+     *
+     * @param date $dueDate
+     * @return Product
+     */
+    public function setDueDate($dueDate)
+    {
+        $this->dueDate = $dueDate;
+
+        return $this;
+    }
+
+    /**
+     * Get duedate
+     *
+     * @return string 
+     */
+    public function getDueDate()
+    {
+        return $this->dueDate;
+    }
+
 
     /**
      * @ORM\PrePersist
