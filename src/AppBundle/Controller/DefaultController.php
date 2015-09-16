@@ -108,12 +108,12 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/product/new", name="productNew")
+     * @Route("{_locale}/product/new", name="productNew")
      */
     public function newAction(Request $request)
     {
         $product = new Product();
-        $product->setName('Televison');
+        $product->setName('');
         $product->setPrice('160');
         $product->setDescription('Samsung 50');
 
