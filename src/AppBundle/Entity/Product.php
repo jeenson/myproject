@@ -21,7 +21,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank(message = "product.name")
+     * @Assert\NotBlank(message = "product.name.not_blank")
      */
     protected $name;
 
