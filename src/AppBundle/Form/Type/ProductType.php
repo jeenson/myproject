@@ -12,10 +12,10 @@ class ProductType extends AbstractType
 			->add('name', 'text')
 	        ->add('price', 'number')
 	        ->add('description', 'textarea')
+	        ->add('category', new CategoryType())
 	        //->add('duoDate', 'date', array('widget' => 'single_text', 'label'  => 'Due Date'))
 	        ->add('dueDate', null, array('widget' => 'single_text'))
-	        ->add('save', 'submit', array('label' => 'New Product'))
-	        ->add('saveAndAdd', 'submit', array('label' => 'Save and Add'))
+	        ->add('save', 'submit', array('label' => 'Save Product'))
         ;
 	}
 

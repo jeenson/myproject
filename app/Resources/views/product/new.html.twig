@@ -2,12 +2,16 @@
 {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
 {{ form_widget(form) }}
 {{ form_end(form) #}
-
-{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+{% form_theme form 'AppBundle:Form:fields.html.twig' %}
+	{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
     {{ form_errors(form) }}
 
     {{ form_row(form.name) }}
+    <h3>Category</h3>
+	<div class="category">
+	    {{ form_row(form.category.name) }}
+	</div>
     {{ form_row(form.dueDate) }}
 {{ form_end(form) }}
 
-{# form_theme form 'form/fields.html.twig' #}
+

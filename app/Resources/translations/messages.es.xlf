@@ -4,7 +4,7 @@
     <file source-language="es" datatype="plaintext" original="file.ext">
         <body>
             <trans-unit id="1">
-                <source>product.name</source>
+                <source>product.name.not_blank</source>
                 <target>Por favor ingrese el nombre del producto.</target>
             </trans-unit>
         </body>

@@ -113,30 +113,22 @@ class DefaultController extends Controller
     public function newAction(Request $request)
     {
         $product = new Product();
-        $product->setName('');
+        /*$product->setName('');
         $product->setPrice('160');
-        $product->setDescription('Samsung 50');
-
-        /*
-        $form = $this->createFormBuilder($product)
-        ->add('name', 'text')
-        ->add('price', 'number')
-        ->add('description', 'textarea')
-        //->add('duoDate', 'date', array('widget' => 'single_text', 'label'  => 'Due Date'))
-        ->add('dueDate', null, array('widget' => 'single_text'))
-        ->add('save', 'submit', array('label' => 'New Product'))
-        ->add('saveAndAdd', 'submit', array('label' => 'Save and Add'))
-        ->getForm();*/
+        $product->setDescription('Samsung 50');*/
+         $product->setDueDate(new \DateTime());
 
         $form = $this->createForm(new ProductType(), $product);
 
         $form->handleRequest($request);
+
         if ($form->isValid()) {
-            $nextAction = $form->get('saveAndAdd')->isClicked()
-            ? 'task_new'
-            : 'task_success';
-            die($nextAction);
-            //return $this->redirectToRoute('task_success');
+            //$data = $form->getData();
+            //dump($product);die();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('productNew');
         }
 
         return $this->render('product/new.html.twig', array(
